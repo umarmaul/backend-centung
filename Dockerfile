@@ -1,5 +1,7 @@
-# Gunakan base image Python
 FROM python:3.10-slim
+
+# Instal dependensi untuk mengunduh dan menjalankan Poetry
+RUN apt-get update && apt-get install -y curl
 
 # Instal Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
@@ -14,7 +16,7 @@ WORKDIR /app
 COPY . .
 
 # Instal dependensi proyek menggunakan Poetry
-RUN poetry install
+RUN poetry install --no-root
 
-# Jalankan perintah untuk menjalankan server (sesuaikan dengan kebutuhan)
+# Jalankan perintah untuk menjalankan server
 CMD ["poetry", "run", "start"]
