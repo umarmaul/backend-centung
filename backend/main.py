@@ -21,7 +21,7 @@ def main() -> None:
         return RedirectResponse("/docs", status_code=status.HTTP_302_FOUND)
 
     origins = [
-        "http://145.223.117.210:4000",
+        "http://145.223.117.210:5000",
     ]
 
     app.add_middleware(
