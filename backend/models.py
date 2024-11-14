@@ -60,7 +60,8 @@ class Device(Base):
     __tablename__ = "devices"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=True)
+    device_name = Column(String, nullable=True)
+    hashed_password = Column(String, nullable=False)
     type = Column(String, nullable=True)
     firmware_version = Column(String, nullable=True)
     status = Column(Boolean, default=True, nullable=False)
@@ -79,6 +80,23 @@ class Log(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
     device_id = Column(Integer, ForeignKey("devices.id"), nullable=False)
     weight = Column(Float, nullable=False)
+    created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False)
+    updated_at = Column(
+        DateTime,
+        default=datetime.datetime.now(),
+        onupdate=datetime.datetime.now(),
+        nullable=False,
+    )
+
+class Research(Base):
+    __tablename__ = "researches"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    device_id = Column(Integer, ForeignKey("devices.id"), nullable=False)
+    weight = Column(Float, nullable=False)
+    roll = Column(Float, nullable=False)
+    pitch = Column(Float, nullable=False)
+    weight_prediction = Column(Float, nullable=False)
     created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False)
     updated_at = Column(
         DateTime,

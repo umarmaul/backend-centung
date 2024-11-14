@@ -2,6 +2,7 @@ from fastapi.responses import RedirectResponse
 import uvicorn
 from .models import Base
 from .database import engine
+from .routers import account, device, log, profile
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -15,12 +16,12 @@ def main() -> None:
 
     Base.metadata.create_all(bind=engine)
 
-    @app.get("/")
-    async def root(request: Request):
+    @app.get("/" , tags=["home"])
+    async def docs(request: Request):
         return RedirectResponse("/docs", status_code=status.HTTP_302_FOUND)
 
     origins = [
-        "http://194.238.16.213:4000",
+        "http://145.223.117.210:4000",
     ]
 
     app.add_middleware(
@@ -30,6 +31,11 @@ def main() -> None:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    
+    app.include_router(account.router)
+    app.include_router(device.router)
+    app.include_router(log.router)
+    app.include_router(profile.router)  
 
     print("Starting server...")
     uvicorn.run(app, host="localhost", port=4000)
