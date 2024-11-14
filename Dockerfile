@@ -14,7 +14,7 @@ WORKDIR /app
 COPY . .
 
 # Instal dependensi proyek menggunakan Poetry
-RUN poetry install --no-root
+RUN poetry install
 
 # Jalankan perintah untuk menjalankan server (sesuaikan dengan kebutuhan)
 CMD ["poetry", "run", "start"]
