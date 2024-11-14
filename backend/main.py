@@ -38,7 +38,7 @@ def main() -> None:
     app.include_router(profile.router)  
 
     print("Starting server...")
-    uvicorn.run(app, host="localhost", port=4000)
+    uvicorn.run(app, host="localhost", port=5000)
 
 
 if __name__ == "__main__":
